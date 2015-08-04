@@ -41,3 +41,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/BookingManagment/nbproject/private/
+/JavaApplication3/nbproject/private/
+/JavaApplication3/build/
+/BookingManagment/build/
+/BookingManagment/dist/
