@@ -3,7 +3,6 @@ package alexkantas.bookingmanagment;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.sql.ResultSet;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -12,7 +11,8 @@ import javax.swing.JPanel;
  * @author Alexandros Kantas
  */
 public class RoomPanel extends JPanel {
-    
+
+//    DatabaseConnect bd = new DatabaseConnect();
     BorderLayout borderLayout = new BorderLayout();
 
     GridLayout grid = new GridLayout(4, 6);
@@ -30,14 +30,25 @@ public class RoomPanel extends JPanel {
             bottom.add(new JLabel(stingelements[i]));
         }
 
-        for (int i = 0; i < 24; i++) {
-            Room room = new Room(i + 1, 2, 5);
-            mainpanel.add(room);
-        }
+        initializeRooms();
 
         setLayout(borderLayout);
-        add(mainpanel,BorderLayout.CENTER);
-        add(bottom,BorderLayout.PAGE_END);
+        add(mainpanel, BorderLayout.CENTER);
+        add(bottom, BorderLayout.PAGE_END);
 
+    }
+
+    private void initializeRooms() {
+        for (int i = 0; i < 24; i++) {
+            Room room = HotelFrame.db.getRoom(i + 1);
+            mainpanel.add(room);
+        }
+    }
+    
+    public void updateRooms(){
+        for (int i = 0; i < 24; i++) {
+           Room room = (Room)mainpanel.getComponent(i);
+           room.setAvailable(HotelFrame.db.getRoomAvailability(i+1));
+        }
     }
 }

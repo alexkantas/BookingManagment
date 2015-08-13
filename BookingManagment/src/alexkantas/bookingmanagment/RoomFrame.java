@@ -11,7 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
@@ -19,52 +23,130 @@ import javax.swing.SwingConstants;
  */
 public class RoomFrame extends JFrame {
 
-    public RoomFrame(Room room) {
+    private static final Font titlefont = new Font("Arial", Font.BOLD, 30);
+    private static final Font font = new Font("Arial", Font.BOLD, 15);
+    private static final Font compfont = new Font("Arial", Font.PLAIN, 20);
+
+    JButton available = new JButton();
+    Room room;
+    JButton cost;
+
+    public RoomFrame(Room hotelRoom) {
+        room = hotelRoom;
         String title = "Δωμάτιο " + room.getText();
 
         //
         JLabel top = new JLabel(title, SwingConstants.CENTER);
-        top.setFont(new Font("Arial", Font.BOLD, 30));
+        top.setFont(titlefont);
 
         //
-        GridLayout grid = new GridLayout(3,1);
+        GridLayout grid = new GridLayout(4, 1);
         JPanel mainpanel = new JPanel(grid);
 
-        JButton available = new JButton("Διαθέσιμο");
-        available.setBackground(room.getBackground());
-        available.setFont(new Font("Arial", Font.PLAIN,20));
+        JButton booking = new JButton("Κράτηση");
+        booking.setBackground(Color.lightGray);
+        booking.setFont(compfont);
+        mainpanel.add(booking);
+
+        updateAvailableButton();
+        available.setFont(titlefont);
         available.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-         room.setAvailable(!room.isAvailable());
-         //JOptionPane.showMessageDialog(null, "Έγινε αλλαγή της Διαθεσιμότητας!");
-         available.setBackground(room.getBackground());
+                room.setAvailable(!room.isAvailable());
+//         JOptionPane.showMessageDialog(null, "Έγινε αλλαγή της Διαθεσιμότητας!");
+                updateAvailableButton();
             }
         });
-        
+
         mainpanel.add(available);
 
         JButton type = new JButton("Δίκλινο");
         type.setBackground(Color.gray);
-        type.setFont(new Font("Arial", Font.PLAIN,20));
+        type.setFont(compfont);
         mainpanel.add(type);
 
-        JButton cost = new JButton(room.getCost() + "€");
+        cost = new JButton(room.getCost() + "€");
         cost.setBackground(Color.lightGray);
-        cost.setFont(new Font("Arial", Font.PLAIN,20));
+        cost.setFont(compfont);
+
+        cost.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CostFrame c = new CostFrame();
+            }
+        });
+
         mainpanel.add(cost);
 
         //
         add(top, BorderLayout.PAGE_START);
         add(mainpanel, BorderLayout.CENTER);
-        
+
         //
         setTitle(title);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    private void updateAvailableButton() {
+        available.setBackground(room.getBackground());
+        if (room.isAvailable()) {
+            available.setText("Διαθέσιμo");
+        } else {
+            available.setText("Μη διαθέσιμo");
+        }
+    }
+
+    class CostFrame extends JFrame {
+
+        public CostFrame() {
+
+            String title = "Κόστος Δωματίου";
+            JPanel top = new JPanel();
+            JPanel bottom = new JPanel(new BorderLayout());
+            JLabel costtxt = new JLabel("Κόστος:");
+            costtxt.setFont(font);
+            JLabel pricetxt = new JLabel("€ / Βραδία");
+            pricetxt.setFont(font);
+
+            int roomcost = room.getCost();
+            SpinnerModel smodel = new SpinnerNumberModel(roomcost, 0, 50000, 50);
+            JSpinner spinner = new JSpinner(smodel);
+            spinner.setFont(font);
+
+            JButton okbutton = new JButton("OK");
+            okbutton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   int c = (int)spinner.getValue();
+                   room.setCost(c);
+                   cost.setText(room.getCost()+"€");
+                   dispose();
+                }
+            });
+
+            top.add(costtxt);
+            top.add(spinner);
+            top.add(pricetxt);
+
+            bottom.add(okbutton, BorderLayout.LINE_END);
+
+            add(top, BorderLayout.PAGE_START);
+            add(bottom, BorderLayout.PAGE_END);
+
+            setTitle(title);
+            pack();
+            setLocationRelativeTo(null);
+            setVisible(true);
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        }
+
     }
 
 }

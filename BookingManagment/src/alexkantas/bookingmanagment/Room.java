@@ -13,7 +13,7 @@ import javax.swing.JButton;
 public class Room extends JButton implements ActionListener {
 
     //
-    private int name;
+    private int id;
     private int beds;  //number of beds in room
     private int maxbeds; //potential higher nymber of beds
     private boolean available;
@@ -26,7 +26,7 @@ public class Room extends JButton implements ActionListener {
     }
 
     public Room(int id, int beds, int maxbeds, boolean availble, int cost) {
-        name = id;
+        this.id = id;
         this.beds = beds;
         this.maxbeds = maxbeds;
         this.available = availble;
@@ -42,8 +42,9 @@ public class Room extends JButton implements ActionListener {
         return available;
     }
 
-    public void setAvailable(boolean availability) {
-        this.available = availability;
+    public void setAvailable(boolean available) {
+        HotelFrame.db.updateRoomAvailability(id, available);
+        this.available = available;
         updateStyle();
     }
 
@@ -52,6 +53,7 @@ public class Room extends JButton implements ActionListener {
     }
 
     public void setCost(int cost) {
+        HotelFrame.db.updateRoomCost(id, cost);
         this.cost = cost;
     }
 

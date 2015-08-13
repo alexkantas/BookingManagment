@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2015 Alexandros Kantas 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package alexkantas.bookingmanagment;
 
 import java.awt.BorderLayout;
@@ -18,12 +34,17 @@ import javax.swing.SwingConstants;
  */
 public class HotelFrame extends JFrame {
 
+    public static DatabaseConnect db;
+    RoomPanel roomPanel;
+    BookingPanel bookingPanel;
     private static final Font font = new Font("Arial", Font.BOLD, 30);
 
     public HotelFrame() {
+        db = new DatabaseConnect();
+
         //
-        RoomPanel roomPanel = new RoomPanel();
-        BookingPanel bookingPanel = new BookingPanel();
+        roomPanel = new RoomPanel();
+        bookingPanel = new BookingPanel();
 
         //
         GridLayout topgrid = new GridLayout(2, 1);
@@ -49,17 +70,28 @@ public class HotelFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (roomPanel.isVisible()) {
-                    System.out.println("It's here!!!");
-                    roomPanel.setVisible(false);
-                    bookingPanel.setVisible(true);
-                    add(bookingPanel,BorderLayout.CENTER);
-                    pack();
-                    validate();
+                    roomPanel.updateRooms();
                 } else {
-                    System.out.println("Not Here !!!");
                     bookingPanel.setVisible(false);
                     roomPanel.setVisible(true);
-                    add(roomPanel,BorderLayout.CENTER);
+                    add(roomPanel, BorderLayout.CENTER);
+                    pack();
+                    validate();
+                }
+            }
+        });
+
+        //
+        bookbutton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (bookingPanel.isVisible()) {
+                    
+                } else {
+                    roomPanel.setVisible(false);
+                    bookingPanel.setVisible(true);
+                    add(bookingPanel, BorderLayout.CENTER);
                     pack();
                     validate();
                 }
@@ -72,6 +104,7 @@ public class HotelFrame extends JFrame {
 
         //
         add(top, BorderLayout.PAGE_START);
+        bookingPanel.setVisible(false);
         add(roomPanel, BorderLayout.CENTER);
 
         //
