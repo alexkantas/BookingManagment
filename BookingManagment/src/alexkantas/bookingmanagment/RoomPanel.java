@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  */
 public class RoomPanel extends JPanel {
 
-//    DatabaseConnect bd = new DatabaseConnect();
+//    DatabaseConnection bd = new DatabaseConnection();
     BorderLayout borderLayout = new BorderLayout();
 
     GridLayout grid = new GridLayout(4, 6);

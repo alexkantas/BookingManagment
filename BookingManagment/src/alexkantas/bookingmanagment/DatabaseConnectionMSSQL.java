@@ -31,31 +31,24 @@ import javax.swing.JOptionPane;
  *
  * @author Alexandros Kantas
  */
-public class DatabaseConnect {
+public class DatabaseConnectionMSSQL extends DatabaseConnection {
 
-    private static final String dbms = "derby";
-    private static final String host = "localhost";
-    private static final String port = "1527";
-    private static final String dbname = "Hotel";
-    private static final String userName = "alex";
-    private static final String password = "alex";
-    private Properties properties = new Properties();
     private Connection conn = null;
     private Statement statement = null;
     private String sql;
 
-    public DatabaseConnect() {
-        String jdbcurl = "jdbc:" + dbms + "://" + host + ":" + port + "/" + dbname;
-        properties.put("user", userName);
-        properties.put("password", password);
-        properties.put("user", userName);
-        if ("postgresql".equals(dbms)) {
-            properties.put("ssl", "true");
-            properties.put("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
-        }
+    public DatabaseConnectionMSSQL() {
+        String jdbcurl = "jdbc:sqlserver://0.database.windows.net:1433;"
+                + "database=super;user=0@0;"
+                + "password= !;"
+                + "encrypt=true;"
+                + "trustServerCertificate=false;"
+                + "hostNameInCertificate=*.database.windows.net;"
+                + "loginTimeout=30";
+
         System.out.print("Connecting...");
         try {
-            conn = DriverManager.getConnection(jdbcurl, properties);
+            conn = DriverManager.getConnection(jdbcurl);
         } catch (SQLException e) {
             System.out.println("Error:\n");
             System.err.println(e.getMessage());
@@ -69,23 +62,20 @@ public class DatabaseConnect {
         try {
             System.out.print("Initializing...");
             statement = conn.createStatement();
-            sql = "";
-            if (!"derby".equals(dbms)) { // derby do not support IF EXISTS
-                sql = "DROP TABLE IF EXISTS ROOMS;";
-            }
+            sql = "DROP TABLE IF EXISTS ROOMS;";
             sql = sql
                     + "CREATE TABLE ROOMS("
                     + "id INT,"
                     + "beds INT,"
                     + "maxbeds INT,"
                     + "cost INT,"
-                    + "available BOOLEAN,"
+                    + "available BIT,"
                     + "PRIMARY KEY(id))";
             statement.executeUpdate(sql);
             int j;
             for (int i = 0; i < 24; i++) {
                 j = i + 1;
-                sql = "INSERT INTO ROOMS VALUES (" + j + ",3,4,50,true)";
+                sql = "INSERT INTO ROOMS VALUES (" + j + ",3,4,50,1)";
                 statement.executeUpdate(sql);
             }
 
@@ -123,9 +113,13 @@ public class DatabaseConnect {
     }
 
     public void updateRoomAvailability(int id, boolean available) {
+        byte av = 0;
+        if (available) {
+            av = 1;
+        }
         try {
             statement = conn.createStatement();
-            sql = "UPDATE ROOMS SET available=" + available + " WHERE id=" + id;
+            sql = "UPDATE ROOMS SET available=" + av + " WHERE id=" + id;
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Error:\n");
@@ -133,8 +127,8 @@ public class DatabaseConnect {
             JOptionPane.showMessageDialog(null, "Πρόβλημα με την τροποποίηση στοιχείων στη ΒΔ!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-        public void updateRoomCost(int id, int cost) {
+
+    public void updateRoomCost(int id, int cost) {
         try {
             statement = conn.createStatement();
             sql = "UPDATE ROOMS SET cost=" + cost + " WHERE id=" + id;
@@ -169,8 +163,8 @@ public class DatabaseConnect {
     }
 
     public static void main(String[] args) {
-        DatabaseConnect db = new DatabaseConnect();
-//        db.initializeRoomTable();
+        DatabaseConnection db = new DatabaseConnectionMSSQL();
+        // db.initializeRoomTable();
         db.updateRoomAvailability(6, false);
     }
 }

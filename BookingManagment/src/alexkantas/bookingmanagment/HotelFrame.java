@@ -34,13 +34,13 @@ import javax.swing.SwingConstants;
  */
 public class HotelFrame extends JFrame {
 
-    public static DatabaseConnect db;
+    public static DatabaseConnection db;
     RoomPanel roomPanel;
     BookingPanel bookingPanel;
     private static final Font font = new Font("Arial", Font.BOLD, 30);
 
     public HotelFrame() {
-        db = new DatabaseConnect();
+        db = new DatabaseConnectionJavaDB();
 
         //
         roomPanel = new RoomPanel();
