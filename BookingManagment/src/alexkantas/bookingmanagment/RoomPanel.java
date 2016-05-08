@@ -20,7 +20,7 @@ public class RoomPanel extends JPanel {
 
     JPanel bottom = new JPanel();
     Color[] colorelements = new Color[]{Color.GREEN, Color.RED};
-    String[] stingelements = new String[]{"Διαθέσιμο", "Μη Διαθέσιμο"};
+    String[] stingelements = new String[]{Internationalization.available, Internationalization.notavailable};
 
     public RoomPanel() {
         for (int i = 0; i < stingelements.length; i++) {

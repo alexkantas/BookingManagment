@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
@@ -33,7 +32,7 @@ public class RoomFrame extends JFrame {
 
     public RoomFrame(Room hotelRoom) {
         room = hotelRoom;
-        String title = "Δωμάτιο " + room.getText();
+        String title = Internationalization.room + room.getText();
 
         //
         JLabel top = new JLabel(title, SwingConstants.CENTER);
@@ -43,7 +42,7 @@ public class RoomFrame extends JFrame {
         GridLayout grid = new GridLayout(4, 1);
         JPanel mainpanel = new JPanel(grid);
 
-        JButton booking = new JButton("Κράτηση");
+        JButton booking = new JButton(Internationalization.book);
         booking.setBackground(Color.lightGray);
         booking.setFont(compfont);
         mainpanel.add(booking);
@@ -62,7 +61,7 @@ public class RoomFrame extends JFrame {
 
         mainpanel.add(available);
 
-        JButton type = new JButton("Δίκλινο");
+        JButton type = new JButton(Internationalization.doubleroom);
         type.setBackground(Color.gray);
         type.setFont(compfont);
         mainpanel.add(type);
@@ -96,9 +95,9 @@ public class RoomFrame extends JFrame {
     private void updateAvailableButton() {
         available.setBackground(room.getBackground());
         if (room.isAvailable()) {
-            available.setText("Διαθέσιμo");
+            available.setText(Internationalization.available);
         } else {
-            available.setText("Μη διαθέσιμo");
+            available.setText(Internationalization.notavailable);
         }
     }
 
@@ -106,12 +105,12 @@ public class RoomFrame extends JFrame {
 
         public CostFrame() {
 
-            String title = "Κόστος Δωματίου";
+            String title = Internationalization.roomcost;
             JPanel top = new JPanel();
             JPanel bottom = new JPanel(new BorderLayout());
-            JLabel costtxt = new JLabel("Κόστος:");
+            JLabel costtxt = new JLabel(Internationalization.roomcost+":");
             costtxt.setFont(font);
-            JLabel pricetxt = new JLabel("€ / Βραδία");
+            JLabel pricetxt = new JLabel("€ "+Internationalization.pernight);
             pricetxt.setFont(font);
 
             int roomcost = room.getCost();

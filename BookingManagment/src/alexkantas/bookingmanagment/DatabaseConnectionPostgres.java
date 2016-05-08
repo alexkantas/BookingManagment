@@ -16,15 +16,13 @@
  */
 package alexkantas.bookingmanagment;
 
+import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -57,7 +55,7 @@ public class DatabaseConnectionPostgres extends DatabaseConnection {
         } catch (SQLException e) {
             System.out.println("Error:\n");
             System.err.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Πρόβλημα με τη σύνδεση στην βάση δεδομένων!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Internationalization.error1, "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         System.out.println("done!");
@@ -68,9 +66,7 @@ public class DatabaseConnectionPostgres extends DatabaseConnection {
             System.out.print("Initializing...");
             statement = conn.createStatement();
             sql = "";
-            if (!"derby".equals(dbms)) { // derby do not support IF EXISTS
-                sql = "DROP TABLE IF EXISTS ROOMS;";
-            }
+            sql = "DROP TABLE IF EXISTS ROOMS;";
             sql = sql
                     + "CREATE TABLE ROOMS("
                     + "id INT,"
@@ -166,7 +162,8 @@ public class DatabaseConnectionPostgres extends DatabaseConnection {
         return false;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
+        new Internationalization();
         DatabaseConnection db = new DatabaseConnectionPostgres();
         // db.initializeRoomTable();
         db.updateRoomAvailability(6, false);

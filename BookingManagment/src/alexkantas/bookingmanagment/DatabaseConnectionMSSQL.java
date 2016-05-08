@@ -21,10 +21,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,7 +48,7 @@ public class DatabaseConnectionMSSQL extends DatabaseConnection {
         } catch (SQLException e) {
             System.out.println("Error:\n");
             System.err.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Πρόβλημα με τη σύνδεση στην βάση δεδομένων!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Internationalization.error1, "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         System.out.println("done!");
@@ -163,6 +159,7 @@ public class DatabaseConnectionMSSQL extends DatabaseConnection {
     }
 
     public static void main(String[] args) {
+        new Internationalization();
         DatabaseConnection db = new DatabaseConnectionMSSQL();
         // db.initializeRoomTable();
         db.updateRoomAvailability(6, false);

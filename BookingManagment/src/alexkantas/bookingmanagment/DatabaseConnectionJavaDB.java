@@ -16,22 +16,20 @@
  */
 package alexkantas.bookingmanagment;
 
+import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Alexandros Kantas
  */
-public class DatabaseConnectionJavaDB extends DatabaseConnection{
+public class DatabaseConnectionJavaDB extends DatabaseConnection {
 
     private static final String dbms = "derby";
     private static final String host = "localhost";
@@ -55,7 +53,7 @@ public class DatabaseConnectionJavaDB extends DatabaseConnection{
         } catch (SQLException e) {
             System.out.println("Error:\n");
             System.err.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Πρόβλημα με τη σύνδεση στην βάση δεδομένων!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, Internationalization.error1, "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         System.out.println("done!");
@@ -65,10 +63,6 @@ public class DatabaseConnectionJavaDB extends DatabaseConnection{
         try {
             System.out.print("Initializing...");
             statement = conn.createStatement();
-            sql = "";
-            if (!"derby".equals(dbms)) { // derby do not support IF EXISTS
-                sql = "DROP TABLE IF EXISTS ROOMS;";
-            }
             sql = sql
                     + "CREATE TABLE ROOMS("
                     + "id INT,"
@@ -129,8 +123,8 @@ public class DatabaseConnectionJavaDB extends DatabaseConnection{
             JOptionPane.showMessageDialog(null, "Πρόβλημα με την τροποποίηση στοιχείων στη ΒΔ!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-        public void updateRoomCost(int id, int cost) {
+
+    public void updateRoomCost(int id, int cost) {
         try {
             statement = conn.createStatement();
             sql = "UPDATE ROOMS SET cost=" + cost + " WHERE id=" + id;
@@ -165,8 +159,9 @@ public class DatabaseConnectionJavaDB extends DatabaseConnection{
     }
 
     public static void main(String[] args) {
+        new Internationalization();
         DatabaseConnection db = new DatabaseConnectionJavaDB();
-       // db.initializeRoomTable();
+        // db.initializeRoomTable();
         db.updateRoomAvailability(6, false);
     }
 }

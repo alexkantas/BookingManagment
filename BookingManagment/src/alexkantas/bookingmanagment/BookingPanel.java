@@ -34,9 +34,9 @@ public class BookingPanel extends JPanel{
     JPanel bottom = new JPanel();
     
     //
-    JButton settings = new JButton("Ρυθμίσεις");
-    JButton showPassed = new JButton("Εμφάνιση παλιών κρατήσεων");
-    JButton addnew = new JButton("Προσθήκη νέας κράτησης");
+    JButton settings = new JButton(Internationalization.settings);
+    JButton showPassed = new JButton(Internationalization.oldbooks);
+    JButton addnew = new JButton(Internationalization.addbook);
 
     public BookingPanel() {
         

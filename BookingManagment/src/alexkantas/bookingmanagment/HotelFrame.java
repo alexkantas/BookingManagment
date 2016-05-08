@@ -38,8 +38,10 @@ public class HotelFrame extends JFrame {
     RoomPanel roomPanel;
     BookingPanel bookingPanel;
     private static final Font font = new Font("Arial", Font.BOLD, 30);
+    private JLabel panelTitle;
 
     public HotelFrame() {
+        new Internationalization();
         db = new DatabaseConnectionJavaDB();
 
         //
@@ -52,14 +54,14 @@ public class HotelFrame extends JFrame {
         GridLayout selectiongrid = new GridLayout(1, 2);
 
         //
-        JLabel panelTitle = new JLabel("Δωμάτια", SwingConstants.CENTER);
+        panelTitle = new JLabel(Internationalization.rooms, SwingConstants.CENTER);
         panelTitle.setFont(font);
 
         //
         JPanel selectPanel = new JPanel(selectiongrid);
-        JButton roomsbutton = new JButton("Δωμάτια");
+        JButton roomsbutton = new JButton(Internationalization.rooms);
         roomsbutton.setBackground(Color.lightGray);
-        JButton bookbutton = new JButton("Κρατήσεις");
+        JButton bookbutton = new JButton(Internationalization.books);
         bookbutton.setBackground(Color.lightGray);
         selectPanel.add(roomsbutton);
         selectPanel.add(bookbutton);
@@ -74,6 +76,7 @@ public class HotelFrame extends JFrame {
                 } else {
                     bookingPanel.setVisible(false);
                     roomPanel.setVisible(true);
+                    panelTitle.setText(Internationalization.rooms);
                     add(roomPanel, BorderLayout.CENTER);
                     pack();
                     validate();
@@ -91,6 +94,7 @@ public class HotelFrame extends JFrame {
                 } else {
                     roomPanel.setVisible(false);
                     bookingPanel.setVisible(true);
+                    panelTitle.setText(Internationalization.books);
                     add(bookingPanel, BorderLayout.CENTER);
                     pack();
                     validate();
