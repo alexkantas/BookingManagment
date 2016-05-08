@@ -15,3 +15,5 @@ This application support:
 * **Connection with database ( tested in local JAVA DB, Azure MS SQL and Heroku PostgreSQL)**
 * **GUI elements witch interact in real time with each other**
 * **Multiple language menus**
+
+*You can use the [Getting Started wiki](https://github.com/alexzzzboom/BookingManagment/wiki/Getting-Started) page to learn how to run the app*
