@@ -16,7 +16,6 @@
  */
 package alexkantas.bookingmanagment;
 
-import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -162,6 +161,6 @@ public class DatabaseConnectionJavaDB extends DatabaseConnection {
         new Internationalization();
         DatabaseConnection db = new DatabaseConnectionJavaDB();
         // db.initializeRoomTable();
-        db.updateRoomAvailability(6, false);
+        //db.updateRoomAvailability(6, false);
     }
 }
