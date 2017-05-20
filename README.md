@@ -1,13 +1,12 @@
-Hotel Booking Management Application
-====================================
+# Hotel Booking Management Application
 
-Application for easy booking administration with elegant GUI developed with JAVA Swing.
-------------------
+### Application for easy booking administration with elegant GUI developed with JAVA Swing.
+
 ![App image](https://github.com/alexzzzboom/BookingManagment/blob/master/screenshots/1.JPG)
 
-###Award winning app in [Monades Aristeias](https://ma.ellak.gr) _(Units of Excellence:Open-source Sowftware)_ 
+#### Award winning app in [Monades Aristeias](https://ma.ellak.gr) _(Units of Excellence:Open-source Sowftware)_ 
 
-###Presented in event [here](https://ma.ellak.gr/events/3%CE%B7-%CE%B7%CE%BC%CE%B5%CF%81%CE%AF%CE%B4%CE%B1-%CE%BC%CE%BF%CE%BD%CE%AC%CE%B4%CE%B1%CF%82-%CE%B1%CF%81%CE%B9%CF%83%CF%84%CE%B5%CE%AF%CE%B1%CF%82-%CF%80%CE%B1%CE%BD%CE%B5%CF%80%CE%B9%CF%83%CF%84/)
+#### Presented in event [here](https://ma.ellak.gr/events/3%CE%B7-%CE%B7%CE%BC%CE%B5%CF%81%CE%AF%CE%B4%CE%B1-%CE%BC%CE%BF%CE%BD%CE%AC%CE%B4%CE%B1%CF%82-%CE%B1%CF%81%CE%B9%CF%83%CF%84%CE%B5%CE%AF%CE%B1%CF%82-%CF%80%CE%B1%CE%BD%CE%B5%CF%80%CE%B9%CF%83%CF%84/)
 
 
 This application support:
@@ -16,4 +15,4 @@ This application support:
 * **GUI elements witch interact in real time with each other**
 * **Multiple language menus**
 
-*You can use the [Getting Started wiki](https://github.com/alexzzzboom/BookingManagment/wiki/Getting-Started) page to learn how to run the app*
+*You can use the [Getting Started wiki](https://github.com/alexzzzboom/BookingManagment/wiki/Getting-Started) page to learn how to run the application*
